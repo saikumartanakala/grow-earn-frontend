@@ -1,7 +1,7 @@
 // import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // import Login from "./pages/Auth/Login";
-// import Signup from "./pages/Auth/Signup";
+// import Signup from "./pages/Auth/login";
 
 // import UserDashboard from "./pages/User/UserDashboard";
 // import CreatorDashboard from "./pages/Creator/CreatorDashboard";
@@ -17,7 +17,7 @@
 
 //         {/* Auth */}
 //         <Route path="/login" element={<Login />} />
-//         <Route path="/signup" element={<Signup />} />
+//         <Route path="/login" element={<Signup />} />
 
 //         {/* User */}
 //         <Route
@@ -49,7 +49,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Login from "./pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
+
+
+
+
 
 import UserDashboard from "./pages/User/UserDashboard";
 import CreatorDashboard from "./pages/Creator/CreatorDashboard";
@@ -61,11 +64,10 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* Default route → Signup */}
-        <Route path="/" element={<Navigate to="/signup" replace />} />
+        <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
 
         {/* User */}
         <Route
