@@ -1,9 +1,17 @@
+
+
+
 // import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 // import Login from "./pages/Auth/Login";
-// import Signup from "./pages/Auth/login";
 
-// import UserDashboard from "./pages/User/UserDashboard";
+
+// import ViewerDashboard from "./pages/Viewer/ViewerDashboard";
+
+
+
+
+
 // import CreatorDashboard from "./pages/Creator/CreatorDashboard";
 
 // import RoleGuard from "./routes/RoleGuard";
@@ -12,22 +20,21 @@
 //   return (
 //     <BrowserRouter>
 //       <Routes>
-//         {/* Default route */}
-//         <Route path="/" element={<Navigate to="/login" />} />
+//         {/* Default route → Signup */}
+//         <Route path="/" element={<Navigate to="/login" replace />} />
 
 //         {/* Auth */}
 //         <Route path="/login" element={<Login />} />
-//         <Route path="/login" element={<Signup />} />
 
-//         {/* User */}
+//         {/* Viewer */}
 //         <Route
-//           path="/user/dashboard"
-//           element={
-//             <RoleGuard role="USER">
-//               <UserDashboard />
-//             </RoleGuard>
-//           }
-//         />
+//   path="/viewer/dashboard"
+//   element={
+//     <RoleGuard role="USER">
+//       <ViewerDashboard /> 
+//     </RoleGuard>
+//   }
+// />
 
 //         {/* Creator */}
 //         <Route
@@ -46,35 +53,29 @@
 
 
 
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
 import Login from "./pages/Auth/Login";
-
-
-
-
-
-import UserDashboard from "./pages/User/UserDashboard";
+import ViewerDashboard from "./pages/Viewer/ViewerDashboard";
 import CreatorDashboard from "./pages/Creator/CreatorDashboard";
-
 import RoleGuard from "./routes/RoleGuard";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Default route → Signup */}
+        {/* Default */}
         <Route path="/" element={<Navigate to="/login" replace />} />
 
         {/* Auth */}
         <Route path="/login" element={<Login />} />
 
-        {/* User */}
+        {/* Viewer */}
         <Route
-          path="/user/dashboard"
+          path="/viewer/dashboard"
           element={
-            <RoleGuard role="USER">
-              <UserDashboard />
+            <RoleGuard role="viewer">
+              <ViewerDashboard />
             </RoleGuard>
           }
         />
@@ -83,7 +84,7 @@ export default function App() {
         <Route
           path="/creator/dashboard"
           element={
-            <RoleGuard role="CREATOR">
+            <RoleGuard role="creator">
               <CreatorDashboard />
             </RoleGuard>
           }

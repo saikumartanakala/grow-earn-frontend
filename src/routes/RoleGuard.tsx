@@ -4,7 +4,7 @@
 // import type { ReactNode } from "react";
 
 // interface RoleGuardProps {
-//   allowedRole: "USER" | "CREATOR";
+//   allowedRole: "Viewer" | "CREATOR";
 //   children: ReactNode;
 // }
 
@@ -26,7 +26,7 @@ import type { ReactNode } from "react";
 
 interface RoleGuardProps {
   children: ReactNode;
-  role: "USER" | "CREATOR";
+  role: "viewer" | "creator";
 }
 
 export default function RoleGuard({ children, role }: RoleGuardProps) {

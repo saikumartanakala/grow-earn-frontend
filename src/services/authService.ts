@@ -4,7 +4,7 @@ import api from "./api";
 export const loginApi = async (
   email: string,
   password: string,
-  role: "USER" | "CREATOR"
+  role: "Viewer" | "CREATOR"
 ) => {
   const res = await api.post("/auth/login", {
     email,

@@ -5,60 +5,66 @@ import api from "../../services/api";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"USER" | "CREATOR">("USER");
+  const [role, setRole] = useState<"Viewer" | "CREATOR">("Viewer");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleContinue = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
 
-    try {
-      // 1️⃣ Check email + role
-      const check = await api.post("/auth/check-email-role", {
+  // 🔑 MAP UI ROLE → BACKEND ROLE
+  const backendRole = role === "Viewer" ? "USER" : "CREATOR";
+
+  try {
+    // 1️⃣ Check email + backend role
+    const check = await api.post("/auth/check-email-role", {
+      email,
+      role: backendRole,
+    });
+
+    let res;
+
+    if (check.data.exists) {
+      // 2️⃣ LOGIN
+      res = await api.post("/auth/login", {
         email,
-        role,
+        password,
+        role: backendRole,
       });
-
-      let res;
-
-      if (check.data.exists) {
-        // 2️⃣ LOGIN
-        res = await api.post("/auth/login", {
-          email,
-          password,
-          role,
-        });
-      } else {
-        // 3️⃣ SIGNUP
-        res = await api.post("/auth/signup", {
-          email,
-          password,
-          role,
-        });
-      }
-
-      // 4️⃣ SAVE SESSION
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("role", res.data.role);
-
-      // 5️⃣ REDIRECT
-      if (res.data.role === "CREATOR") {
-        navigate("/creator/dashboard");
-      } else {
-        navigate("/user/dashboard");
-      }
-    } catch (err: any) {
-      setError(
-        err?.response?.data?.message || "Invalid email or password"
-      );
-    } finally {
-      setLoading(false);
+    } else {
+      // 3️⃣ SIGNUP
+      res = await api.post("/auth/signup", {
+        email,
+        password,
+        role: backendRole,
+      });
     }
-  };
+
+    // 4️⃣ SAVE SESSION
+    localStorage.setItem("token", res.data.token);
+
+    // 🔑 STORE UI ROLE (not backend role)
+    const uiRole = backendRole === "USER" ? "viewer" : "creator";
+    localStorage.setItem("role", uiRole);
+
+    // 5️⃣ REDIRECT
+    if (uiRole === "creator") {
+      navigate("/creator/dashboard");
+    } else {
+      navigate("/viewer/dashboard");
+    }
+  } catch (err: any) {
+    setError(
+      err?.response?.data?.message || "Invalid email or password"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -92,11 +98,11 @@ export default function Login() {
         <select
           value={role}
           onChange={(e) =>
-            setRole(e.target.value as "USER" | "CREATOR")
+            setRole(e.target.value as "Viewer" | "CREATOR")
           }
           className="w-full px-3 py-2 border rounded-md"
         >
-          <option value="USER">User</option>
+          <option value="Viewer">Viewer</option>
           <option value="CREATOR">Creator</option>
         </select>
 
