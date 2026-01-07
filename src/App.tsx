@@ -1,63 +1,11 @@
-
-
-
-// import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
-// import Login from "./pages/Auth/Login";
-
-
-// import ViewerDashboard from "./pages/Viewer/ViewerDashboard";
-
-
-
-
-
-// import CreatorDashboard from "./pages/Creator/CreatorDashboard";
-
-// import RoleGuard from "./routes/RoleGuard";
-
-// export default function App() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         {/* Default route → Signup */}
-//         <Route path="/" element={<Navigate to="/login" replace />} />
-
-//         {/* Auth */}
-//         <Route path="/login" element={<Login />} />
-
-//         {/* Viewer */}
-//         <Route
-//   path="/viewer/dashboard"
-//   element={
-//     <RoleGuard role="USER">
-//       <ViewerDashboard /> 
-//     </RoleGuard>
-//   }
-// />
-
-//         {/* Creator */}
-//         <Route
-//           path="/creator/dashboard"
-//           element={
-//             <RoleGuard role="CREATOR">
-//               <CreatorDashboard />
-//             </RoleGuard>
-//           }
-//         />
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// }
-
-
-
-
-
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import Login from "./pages/Auth/Login";
-import ViewerDashboard from "./pages/Viewer/ViewerDashboard";
 import CreatorDashboard from "./pages/Creator/CreatorDashboard";
+import CreateCampaign from "./pages/Creator/CreateCampaign";
+import ViewerDashboard from "./pages/Viewer/ViewerDashboard";
+import ViewerTasks from "./pages/Viewer/ViewerTasks";
+
 import RoleGuard from "./routes/RoleGuard";
 
 export default function App() {
@@ -70,22 +18,40 @@ export default function App() {
         {/* Auth */}
         <Route path="/login" element={<Login />} />
 
+        {/* Creator */}
+        <Route
+          path="/creator/dashboard"
+          element={
+            <RoleGuard role="CREATOR">
+              <CreatorDashboard />
+            </RoleGuard>
+          }
+        />
+
+        <Route
+          path="/creator/create-campaign"
+          element={
+            <RoleGuard role="CREATOR">
+              <CreateCampaign />
+            </RoleGuard>
+          }
+        />
+
         {/* Viewer */}
         <Route
           path="/viewer/dashboard"
           element={
-            <RoleGuard role="viewer">
+            <RoleGuard role="USER">
               <ViewerDashboard />
             </RoleGuard>
           }
         />
 
-        {/* Creator */}
         <Route
-          path="/creator/dashboard"
+          path="/viewer/tasks"
           element={
-            <RoleGuard role="creator">
-              <CreatorDashboard />
+            <RoleGuard role="USER">
+              <ViewerTasks />
             </RoleGuard>
           }
         />
