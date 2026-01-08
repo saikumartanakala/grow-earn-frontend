@@ -51,10 +51,8 @@ export default function Login() {
       } else {
         navigate("/viewer/dashboard");
       }
-    } catch (err: any) {
-      setError(
-        err?.response?.data?.message || "Invalid email or password"
-      );
+    } catch {
+      setError("Invalid email or password");
     } finally {
       setLoading(false);
     }

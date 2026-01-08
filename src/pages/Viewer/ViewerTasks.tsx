@@ -2,8 +2,15 @@ import { useEffect, useState } from "react";
 import api from "../../services/api";
 import Navbar from "../../components/Navbar";
 
+type TaskItem = {
+  id: string;
+  targetLink: string;
+  taskType: string;
+  [key: string]: unknown;
+};
+
 export default function ViewerTasks() {
-  const [tasks, setTasks] = useState<any[]>([]);
+  const [tasks, setTasks] = useState<TaskItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -12,7 +19,7 @@ export default function ViewerTasks() {
       .finally(() => setLoading(false));
   }, []);
 
-  const completeTask = async (task: any) => {
+  const completeTask = async (task: TaskItem) => {
     window.open(task.targetLink, "_blank");
 
     await api.post(`/viewer/tasks/${task.id}/complete`);
