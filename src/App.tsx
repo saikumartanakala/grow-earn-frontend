@@ -5,6 +5,7 @@ import CreatorDashboard from "./pages/Creator/CreatorDashboard";
 import CreateCampaign from "./pages/Creator/CreateCampaign";
 import ViewerDashboard from "./pages/Viewer/ViewerDashboard";
 import ViewerTasks from "./pages/Viewer/ViewerTasks";
+import ViewerEarnings from "./pages/Viewer/ViewerEarnings";
 
 import RoleGuard from "./routes/RoleGuard";
 
@@ -52,6 +53,14 @@ export default function App() {
           element={
             <RoleGuard role="USER">
               <ViewerTasks />
+            </RoleGuard>
+          }
+        />
+        <Route
+          path="/viewer/earnings"
+          element={
+            <RoleGuard role="USER">
+              <ViewerEarnings />
             </RoleGuard>
           }
         />

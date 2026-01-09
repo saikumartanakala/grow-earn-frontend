@@ -18,21 +18,47 @@ export default function CreateCampaign() {
     viewsGoal: 0,
     likesGoal: 0,
     commentsGoal: 0,
+    totalAmount: 0,
+    status: "IN_PROGRESS",
   });
 
   const next = () => setStep((s) => s + 1);
   const back = () => setStep((s) => s - 1);
 
   const submit = async () => {
+    if (!form.totalAmount || form.totalAmount <= 0) {
+      alert("Total amount must be greater than 0.");
+      return;
+    }
+    if (!form.status) {
+      alert("Status is required.");
+      return;
+    }
     try {
       setLoading(true);
-      await api.post("/creator/campaign/create", form);
-      alert("Campaign Created Successfully!");
-      // optionally redirect
-      // navigate("/creator/dashboard");
+      const token = localStorage.getItem("token");
+      const payload = {
+        ...form,
+        totalAmount: Number(form.totalAmount),
+        status: form.status,
+      };
+      const res = await api.post("/creator/campaign/create", payload, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.data && res.data.error) {
+        alert(res.data.error);
+      } else {
+        alert("Campaign Created Successfully!");
+        // After creation, refresh dashboard campaigns (if dashboard is open in parent)
+        if (window.opener && typeof window.opener.fetchCampaigns === "function") {
+          window.opener.fetchCampaigns("IN_PROGRESS");
+        }
+        // Optionally redirect
+        // navigate("/creator/dashboard");
+      }
     } catch (err) {
       console.error("Create Campaign Error:", err);
-      alert("Failed to create campaign. Check console.");
+      alert("Failed to create campaign: " + (err.response?.data?.error || err.message));
     } finally {
       setLoading(false);
     }
@@ -183,9 +209,17 @@ export default function CreateCampaign() {
               }
             />
 
+            <input
+              type="number"
+              className="w-full border p-2 mb-2"
+              placeholder="Total Amount"
+              min={1}
+              value={form.totalAmount}
+              onChange={e => setForm({ ...form, totalAmount: +e.target.value })}
+            />
+
             <div className="flex justify-between">
               <button onClick={back}>Back</button>
-
               <button
                 onClick={submit}
                 disabled={loading}

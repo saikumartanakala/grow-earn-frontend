@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:watch": "nodemon --watch src --watch vite.config.ts --watch package.json --ext ts,tsx,js,jsx,json,css --exec \"npm run dev\" --delay 1",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
@@ -32,5 +33,6 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4"
+    ,"nodemon": "^3.0.2"
   }
 }

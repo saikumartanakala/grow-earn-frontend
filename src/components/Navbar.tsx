@@ -42,7 +42,7 @@ export default function Navbar() {
 
             </li>
             <li>
-              <Link to="#">Earnings</Link>
+              <Link to="/viewer/earnings">Earnings</Link>
             </li>
           </>
         )}

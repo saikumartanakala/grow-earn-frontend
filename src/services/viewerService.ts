@@ -33,6 +33,14 @@ export const getViewerDashboard = async () => {
   return res.data;
 };
 
+export const getViewerTasks = async (): Promise<TaskItem[]> => {
+  const res = await api.get("/viewer/tasks");
+  const data = res.data;
+  if (Array.isArray(data)) return data as TaskItem[];
+  if (data && Array.isArray((data as any).tasks)) return (data as any).tasks as TaskItem[];
+  return [];
+};
+
 export const claimTask = async (taskId: string) => {
   // best-effort: backend may expose a claim endpoint — try POST
   const res = await api.post(`/viewer/tasks/${taskId}/claim`);
@@ -42,4 +50,5 @@ export const claimTask = async (taskId: string) => {
 export default {
   getViewerDashboard,
   claimTask,
+  getViewerTasks,
 };
