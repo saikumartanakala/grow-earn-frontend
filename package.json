@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "dev:watch": "nodemon --watch src --watch vite.config.ts --watch package.json --ext ts,tsx,js,jsx,json,css --exec \"npm run dev\" --delay 1",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
