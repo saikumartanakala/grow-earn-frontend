@@ -102,3 +102,8 @@ REMOTE_USER=user REMOTE_HOST=example.com REMOTE_DIR=/var/www/grow-earn-frontend 
 # Windows PowerShell (example)
 .\n+\scripts\deploy.ps1 -RemoteUser user -RemoteHost example.com -RemoteDir /var/www/grow-earn-frontend
 ```
+
+
+
+
+check 1
