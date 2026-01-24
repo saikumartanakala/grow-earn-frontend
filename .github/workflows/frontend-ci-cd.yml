@@ -23,14 +23,15 @@ jobs:
         run: |
           docker build -t saikumartanakala/grow-earn-frontend:latest .
           docker push saikumartanakala/grow-earn-frontend:latest
+          
       - name: Setup kubeconfig
         env:
-         KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
+          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG }}
         run: |
-         mkdir -p ~/.kube
-         printf "%s" "$KUBE_CONFIG_DATA" | base64 --decode > ~/.kube/config
-         chmod 600 ~/.kube/config
-    
+          mkdir -p ~/.kube
+          printf "%s" "$KUBE_CONFIG_DATA" | base64 --decode > ~/.kube/config
+          chmod 600 ~/.kube/config
+
 
      
       - name: Deploy to Kubernetes
