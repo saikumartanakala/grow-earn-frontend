@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grow-earn-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: grow-earn-frontend
+  template:
+    metadata:
+      labels:
+        app: grow-earn-frontend
+    spec:
+      containers:
+        - name: frontend
+          image: saikumartanakala/grow-earn-frontend:latest
+          ports:
+            - containerPort: 80
